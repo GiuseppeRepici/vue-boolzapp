@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,33 +11,54 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 </head>
-<body >
-    
+
+<body>
+
     <div id="app">
-        <div class="container p-5">
-            <div class="row gx-0">
-                <div class="col-4">
+        <div class="container p-5 h-100">
+            <div class="row gx-0 h-100">
+                <div class="col-4 h-100">
                     <div class="header-profile">
-                        <div>IMG</div>
-                        <div>ICONE</div>
-                    </div>
-                    <div>
-                        <div v-for="item in data" class="contact">
+                        <div  class="contact" >
                             <div class="profile-img"></div>
                             <div class="contact-data">
-                             <h4>{{item.name}}</h4>
-                             <span>{{item.messages[0].message}}</span>
+                                <h4>Giuseppe</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div v-for="item in data" class="contact" @click="selectChat(item)">
+                            <div class="profile-img"></div>
+                            <div class="contact-data">
+                                <h4>{{item.name}}</h4>
+                                <span>{{item.messages[0].message}}</span>
                             </div>
                             <div>12:00</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
-                    <div class="header-chat"></div>
+                <div class="col-8 h-100 d-flex justify-content-between flex-column">
+                    <div class="header-chat">
+                        <div  class="contact" >
+                            <div class="profile-img"></div>
+                            <div class="contact-data">
+                                <h4>{{selectedChat.name}}</h4>
+                                <span>Ultimo accesso alle 12:00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat">
+                        <div  v-for="item in selectedChat.messages" class='message' :class="item.status === 'received' ? 'received' : 'sent'">{{item.message}}</div>
+                     </div>
+                    <div class="chat-footer">
+                     <div>EMOJI</div>
+                     <input v-model="message" v-on:keyup.enter="sendMessage()" />
+                     <div>AUDIO</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
 </body>
+
 </html>
