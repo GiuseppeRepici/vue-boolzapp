@@ -64,7 +64,9 @@ html,body , #app{
     max-width:200px;
     font-size:12px;
     border-radius:8px;
+    cursor:pointer;
     padding:8px;
+    position:relative;
 }
  .sent{
     align-self: flex-end;
@@ -91,4 +93,34 @@ html,body , #app{
     flex:1;
     border-radius:4px;
     
+}
+
+.searchbar{
+    background-color:blue;
+    padding:16px;
+    min-height:32px;
+    display:flex;
+    align-items: center;
+}
+
+.searchbar input { 
+    flex:1;
+}
+
+
+
+.delete{
+    bottom:-32px;
+    position:absolute;
+    display:none;
+    right:0;
+    padding:16px;
+    font-size:12px;
+    border-radius:8px;
+    background-color: lightblue;
+}
+
+.delete:hover{
+    background-color: white;
+    color:#333;
 }

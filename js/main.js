@@ -100,7 +100,10 @@ createApp({
                 }
                 ],
             },
-            message:""
+            message:"",
+            search:"",
+            filteredResults:[],
+            showDelete:false
         };
     },
 
@@ -109,7 +112,6 @@ createApp({
             this.selectedChat = item;
         },
         sendMessage(){
-            console.log(this.message,"message");
             this.selectedChat.messages.push({
                 date:Date.now(),
                 message:this.message,
@@ -122,9 +124,42 @@ createApp({
                     status:'received'
                 })
             },1000)
+        },
+        searchHandler(){
+            this.filteredResults = this.data.filter(item => item.name.includes(this.search));
+        },
+        deleteMessage(message){
+              this.selectedChat.messages =  this.selectedChat.messages.filter(item => item !== message);
         }
+    },
+    mounted () {
+        console.log(this);
+    
+        window.addEventListener('click', function (e) {
+          // Elemento che effettivamente è stato cliccato
+          console.log('click', e.target);
+    
+          if (e.target.classList.contains('message') || e.target.closest('.message')) {
+          let element = e.target.getElementsByClassName('delete')
+          
+          if(element[0].style.display === "block"){
+            element[0].style.display = "none"
+          } else {
+            element[0].style.display='block'
+          }
 
-    }
+         
+           
+          }
+    
+          // Attivo un timer per dare il tempo alla voce cliccata di eseguire la sua azione.
+          /*setTimeout(() => {
+            // se activeMessageDropdown > -1, vuol dire che è attivo il dropdown su un messaggio
+            // lo devo resettare a -1
+            
+          }, 300)*/
+        });
+      }
 
 }).mount("#app")
 

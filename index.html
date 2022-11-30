@@ -19,7 +19,7 @@
             <div class="row gx-0 h-100">
                 <div class="col-4 h-100">
                     <div class="header-profile">
-                        <div  class="contact" >
+                        <div class="contact">
                             <div class="profile-img"></div>
                             <div class="contact-data">
                                 <h4>Giuseppe</h4>
@@ -27,7 +27,19 @@
                         </div>
                     </div>
                     <div>
-                        <div v-for="item in data" class="contact" @click="selectChat(item)">
+                        <div class="searchbar">
+                            <input v-model="search" v-on:input="searchHandler()">
+                        </div>
+                        <div v-if="search.length === 0" v-for="item in data" class="contact" @click="selectChat(item)">
+                            <div class="profile-img"></div>
+                            <div class="contact-data">
+                                <h4>{{item.name}}</h4>
+                                <span>{{item.messages[0].message}}</span>
+                            </div>
+                            <div>12:00</div>
+                        </div>
+                        <div v-if="search.length > 0" v-for="item in filteredResults" class="contact"
+                            @click="selectChat(item)">
                             <div class="profile-img"></div>
                             <div class="contact-data">
                                 <h4>{{item.name}}</h4>
@@ -39,7 +51,7 @@
                 </div>
                 <div class="col-8 h-100 d-flex justify-content-between flex-column">
                     <div class="header-chat">
-                        <div  class="contact" >
+                        <div class="contact">
                             <div class="profile-img"></div>
                             <div class="contact-data">
                                 <h4>{{selectedChat.name}}</h4>
@@ -48,12 +60,22 @@
                         </div>
                     </div>
                     <div class="chat">
-                        <div  v-for="item in selectedChat.messages" class='message' :class="item.status === 'received' ? 'received' : 'sent'">{{item.message}}</div>
-                     </div>
+
+                        <div class='message' v-for="item in selectedChat.messages"
+                           
+                            :class="item.status === 'received' ? 'received' : 'sent'">{{item.message}}
+                            <div class="delete" @click="deleteMessage(item)">
+                                <span>
+                                    Delete message
+                                </span>
+                            </div>
+                        </div>
+                      
+                    </div>
                     <div class="chat-footer">
-                     <div>EMOJI</div>
-                     <input v-model="message" v-on:keyup.enter="sendMessage()" />
-                     <div>AUDIO</div>
+                        <div>EMOJI</div>
+                        <input v-model="message" v-on:keyup.enter="sendMessage()" />
+                        <div>AUDIO</div>
                     </div>
                 </div>
             </div>
